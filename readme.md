@@ -17,12 +17,13 @@ When the size of the buffer is above 6k, this append method ensures that the str
 WARNING - DO NOT MIX STRING APPENDS WITH OTHER STRING OPERATIONS. 
 Always start with an empty string, if a memory buffer with a string length at the end is reused, unexpected results can occur. 
 eg;
+```
 string ls_x = ''
 long ll_i
 for ll_i = 1 to 1000000
    append(ls_x, ' ')
 next
-
+```
 
 ####boolean append (ref blob ab_source, readonly string as_append)####
 Fast append of strings using a blob variable. This is similar to the above function, but slightly slower and less risky as the length of the blob variable can be used to track the location of the end of the string.
@@ -48,7 +49,7 @@ Strings will be extracted up to the next NULL character. At this point only unic
 If you want to extract a specific number of characters, pass in an array.
 
 eg you can use this method to very quickly parse and extract an array of structures;
-
+```
 type str_example from structure
 	long ll_value1
 	datetime ldt_value2
@@ -57,7 +58,7 @@ end type
 
 str_example lstr_values[10]
 blob_extract(lstr_values, lb_data, ll_pos)
-
+```
 
 ####boolean blob_import (readonly any aa_value, ref blob ab_data[, ref long al_pos])####
 This method recursively populates a blob variable from the values passed in.
@@ -72,6 +73,7 @@ This function behaves exactly like the system blobmid function, but it doesn't t
 A utility function for parsing some specific text formats.
 
 eg;
+```
 string ls_tag
 long ll_pos=0
 
@@ -84,7 +86,7 @@ do while next_tag(as_source, '${', '}', ll_pos, ls_tag)
          continue
    end choose
 loop
-
+```
 
 ####string replace_all (readonly string source, readonly string find, readonly string replace [ , boolean insensitive ] )####
 A fast method for replacing all instances of a particular string.
@@ -96,6 +98,7 @@ This is ####much#### faster than any equivalent PB code that must allocate a new
 Sort an array of strings. If you pass in another array of values of any type, this list will be reordered in the same way.
 
 eg;
+```
 string lsa_sortme[]
 long ll_i
 for ll_i = lowerbound(ana_sort_me) to upperbound(ana_sort_me)
@@ -103,15 +106,16 @@ for ll_i = lowerbound(ana_sort_me) to upperbound(ana_sort_me)
 next
 
 sort(lsa_sortme, true, ana_sort_me)
-
+```
 
 ####boolean split (readonly string as_source, readonly string as_delim, ref string as_values[])####
 A fast way to split a string into an array.
 
 eg;
+```
 string lsa_values[]
 split('A,B,C,D', ',', lsa_values)
-
+```
 
 ####boolean token (ref string as_source, readonly string as_delim, ref string as_token)####
 ####boolean token (readonly string as_source, readonly string as_delim, ref long al_pos, ref string as_token)####
@@ -120,6 +124,7 @@ When there are no more tokens the function sets the value to NULL and returns fa
 Note, these methods may be convenient but you should consider calling split and looping through the resulting array as it will be more efficient.
 
 eg;
+```
 string ls_content, ls_line
 string ls_value1, ls_value2, ls_value3
 long ll_pos=0
@@ -132,7 +137,7 @@ do while token(ls_content, '~r~n', ll_pos, ls_line)
    token(ls_line,',',ls_value3)
    ...
 loop
-
+```
 
 ####long fast_pos (readonly string as_source, readonly string as_find)####
 ####long last_pos (readonly string as_source, readonly string as_find)####
@@ -147,6 +152,7 @@ Note that currently the line number of the calling function is incorrect and alw
 
 eg;
 
+```
 type n_ex from exception
 string isa_stack[]
 end type
@@ -154,3 +160,4 @@ end type
 event constructor;
 stack_trace(isa_stack)
 end event
+```
