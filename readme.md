@@ -1,6 +1,9 @@
+PBFastFuncs
+=======
 
-Function Documentation
-======================
+
+Functions Documentation
+----
 
 
 boolean append (ref string as_source, readonly string as_append)
